@@ -24,6 +24,9 @@
   ],
   "author": "LintTrap",
   "license": "MIT",
+  "files": [
+    "src"
+  ],
   "devDependencies": {
     "typescript": "^5.7.0",
     "@types/bun": "latest"

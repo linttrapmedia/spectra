@@ -2,7 +2,26 @@
 
 Spectra is a library and convention for defining, maintaining, and using structured data in a way that’s optimized for large language models (LLMs). At its core, Spectra uses standardized `.spec.json` files that contain both data and metadata—tracking design decisions, changes, and generation instructions.
 
+## Requirements
+
+Spectra requires [Bun](https://bun.sh) — it runs TypeScript directly with no build step.
+
 ## Installation
+
+### Quick Start (no install)
+
+```bash
+bunx @linttrap/spectra --help
+```
+
+### Add to a project
+
+```bash
+bun add -d @linttrap/spectra
+bunx spectra --help
+```
+
+### Contributing
 
 ```bash
 git clone https://github.com/linttrapmedia/spectra.git
@@ -11,35 +30,29 @@ bun install
 bun link
 ```
 
-After linking, the `spectra` CLI is available globally:
-
-```bash
-spectra --help
-```
-
 ## Quick Start
 
 ```bash
 # Create a new spec file
-spectra init my-app.spec.json
+bunx spectra init my-app.spec.json
 
 # Validate it
-spectra validate my-app.spec.json
+bunx spectra validate my-app.spec.json
 
 # Compile directives into VS Code Copilot .prompt.md files
-spectra compile my-app.spec.json --out .github/prompts
+bunx spectra compile my-app.spec.json --out .github/prompts
 
 # Scan a directory for all spec files
-spectra scan .
+bunx spectra scan .
 
 # Get detailed info about a spec
-spectra info my-app.spec.json
+bunx spectra info my-app.spec.json
 
 # Diagnose issues
-spectra doctor my-app.spec.json
+bunx spectra doctor my-app.spec.json
 
 # Set up the Copilot agent file
-spectra setup
+bunx spectra setup
 ```
 
 ## CLI Reference

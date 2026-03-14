@@ -4,12 +4,10 @@ This directory contains a sample `.spec.json` file to demonstrate Spectra CLI us
 
 ## Prerequisites
 
-Make sure `spectra` is available globally via `bun link`:
+Install Spectra as a dev dependency:
 
 ```bash
-cd /path/to/spectra
-bun install
-bun link
+bun add -d @linttrap/spectra
 ```
 
 ## Walkthrough
@@ -18,7 +16,7 @@ bun link
 
 ```bash
 cd examples
-spectra validate my-app.spec.json
+bunx spectra validate my-app.spec.json
 ```
 
 Expected output:
@@ -30,7 +28,7 @@ Expected output:
 ### 2. Get info about the spec
 
 ```bash
-spectra info my-app.spec.json
+bunx spectra info my-app.spec.json
 ```
 
 This prints a detailed report: name, description, version, directives with step counts, schema type count, data keys, changelog entries, and design decisions.
@@ -38,7 +36,7 @@ This prints a detailed report: name, description, version, directives with step 
 ### 3. Run the doctor
 
 ```bash
-spectra doctor my-app.spec.json
+bunx spectra doctor my-app.spec.json
 ```
 
 Reports any errors or warnings in the spec structure.
@@ -46,7 +44,7 @@ Reports any errors or warnings in the spec structure.
 ### 4. Compile prompt files
 
 ```bash
-spectra compile my-app.spec.json --out ./prompts
+bunx spectra compile my-app.spec.json --out ./prompts
 ```
 
 This creates one `.prompt.md` file per directive in `./prompts/`:
@@ -60,7 +58,7 @@ Each file is a complete VS Code Copilot prompt with context, design decisions, c
 ### 5. Scan for spec files
 
 ```bash
-spectra scan .
+bunx spectra scan .
 ```
 
 Output:
@@ -76,7 +74,7 @@ Output:
 ### 6. Create a new spec
 
 ```bash
-spectra init test.spec.json
+bunx spectra init test.spec.json
 ```
 
 Creates a minimal `test.spec.json` template ready for editing.
