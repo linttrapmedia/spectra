@@ -106,14 +106,13 @@ export async function compilePromptFiles(
   ide: "vscode" = "vscode",
 ): Promise<string[]> {
   const specFile = await readSpec(specPath);
-  const specId = specFile.name.toLowerCase().replace(/\s+/g, "-");
   const written: string[] = [];
 
   await mkdir(outputDir, { recursive: true });
 
   for (const directiveName of Object.keys(specFile.meta.directives)) {
     const content = compilePromptFile(specFile, directiveName, ide);
-    const fileName = `${specId}.${directiveName}.prompt.md`;
+    const fileName = `${specFile.id}.${directiveName}.prompt.md`;
     const outPath = join(outputDir, fileName);
     await Bun.write(outPath, content);
     written.push(outPath);

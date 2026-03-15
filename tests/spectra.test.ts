@@ -355,7 +355,7 @@ describe("spectra info", () => {
 
 describe("spectra compile", () => {
   test("compiles prompt files from a spec", async () => {
-    const spec = makeValidSpec({ name: "App" });
+    const spec = makeValidSpec({ id: "app", name: "App" });
     spec.meta.directives = {
       setup: { description: "Setup", steps: [{ type: "text", description: "Go" }] },
       build: { description: "Build", steps: [{ type: "text", description: "Build it" }] },
@@ -385,7 +385,7 @@ describe("spectra compile", () => {
   });
 
   test("generates YAML frontmatter with mode/tools for interactive directives", async () => {
-    const spec = makeValidSpec({ name: "Tool App" });
+    const spec = makeValidSpec({ id: "tool-app", name: "Tool App" });
     spec.meta.directives = {
       setup: {
         description: "Setup",
@@ -406,7 +406,7 @@ describe("spectra compile", () => {
   });
 
   test("omits mode/tools for text-only directives", async () => {
-    const spec = makeValidSpec({ name: "Simple" });
+    const spec = makeValidSpec({ id: "simple", name: "Simple" });
     spec.meta.directives = {
       simple: { description: "Simple", steps: [{ type: "text", description: "Just text" }] },
     };
@@ -422,7 +422,7 @@ describe("spectra compile", () => {
   });
 
   test("renders all step types correctly in compiled output", async () => {
-    const spec = makeValidSpec({ name: "AllSteps" });
+    const spec = makeValidSpec({ id: "allsteps", name: "AllSteps" });
     spec.meta.directives = {
       all: {
         description: "All steps",
@@ -452,7 +452,7 @@ describe("spectra compile", () => {
   });
 
   test("includes design decisions in compiled output", async () => {
-    const spec = makeValidSpec({ name: "Design" });
+    const spec = makeValidSpec({ id: "design", name: "Design" });
     spec.meta.design = [
       { decision: "Use REST", rationale: "Simple", date: "2026-01-01", references: [], tags: [], authors: [] },
     ];
@@ -471,7 +471,7 @@ describe("spectra compile", () => {
   });
 
   test("includes recent changelog in compiled output", async () => {
-    const spec = makeValidSpec({ name: "ChangeLog" });
+    const spec = makeValidSpec({ id: "changelog", name: "ChangeLog" });
     spec.meta.changeLog = [
       {
         change: "Added feature X",
