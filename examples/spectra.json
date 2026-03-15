@@ -1,0 +1,106 @@
+{
+  "ide": "vscode",
+  "out": ".github/prompts",
+  "results": {
+    "scan": [
+      {
+        "filePath": "/Users/kevinlint/LintTrap/spectra/examples/my-app.spec.json",
+        "name": "My App",
+        "description": "User and team management data for My App, with schema-driven types and LLM directives"
+      },
+      {
+        "filePath": "/Users/kevinlint/LintTrap/spectra/examples/test.spec.json",
+        "name": "test",
+        "description": "A new Spectra spec file"
+      }
+    ],
+    "info": [
+      {
+        "filePath": "/Users/kevinlint/LintTrap/spectra/examples/my-app.spec.json",
+        "name": "My App",
+        "description": "User and team management data for My App, with schema-driven types and LLM directives",
+        "version": "1.0.0",
+        "directives": [
+          {
+            "name": "addEntity",
+            "description": "Procedure for adding a new entity type to the spec schema and data",
+            "stepCount": 6
+          },
+          {
+            "name": "generateTypes",
+            "description": "Generate TypeScript type definitions from the spec schema",
+            "stepCount": 3
+          },
+          {
+            "name": "seedData",
+            "description": "Generate seed data records for a given entity type",
+            "stepCount": 4
+          }
+        ],
+        "schemaTypeCount": 4,
+        "dataKeys": [
+          "users",
+          "teams"
+        ],
+        "changeLogCount": 2,
+        "designDecisionCount": 2
+      },
+      {
+        "filePath": "/Users/kevinlint/LintTrap/spectra/examples/test.spec.json",
+        "name": "test",
+        "description": "A new Spectra spec file",
+        "version": "1.0.0",
+        "directives": [
+          {
+            "name": "example",
+            "description": "An example directive",
+            "stepCount": 1
+          }
+        ],
+        "schemaTypeCount": 0,
+        "dataKeys": [],
+        "changeLogCount": 1,
+        "designDecisionCount": 0
+      }
+    ],
+    "doctor": [
+      {
+        "filePath": "/Users/kevinlint/LintTrap/spectra/examples/my-app.spec.json",
+        "errors": [],
+        "warnings": [],
+        "ok": true
+      },
+      {
+        "filePath": "/Users/kevinlint/LintTrap/spectra/examples/test.spec.json",
+        "errors": [],
+        "warnings": [
+          {
+            "severity": "warning",
+            "path": "data",
+            "message": "Data section is empty",
+            "suggestion": "Add data matching your schema definition"
+          },
+          {
+            "severity": "warning",
+            "path": "meta.design",
+            "message": "No design decisions documented",
+            "suggestion": "Document key design decisions for LLM context"
+          }
+        ],
+        "ok": true
+      }
+    ],
+    "validate": [
+      {
+        "filePath": "/Users/kevinlint/LintTrap/spectra/examples/my-app.spec.json",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "filePath": "/Users/kevinlint/LintTrap/spectra/examples/test.spec.json",
+        "valid": true,
+        "errors": []
+      }
+    ]
+  }
+}
