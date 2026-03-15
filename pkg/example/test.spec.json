@@ -1,0 +1,38 @@
+{
+  "ref": "git",
+  "id": "test",
+  "name": "test",
+  "description": "A new Spectra spec file",
+  "version": "1.0.0",
+  "meta": {
+    "changeLog": [
+      {
+        "change": "Initial spec creation",
+        "directive": "init",
+        "timestamp": "2026-01-01T00:00:00Z",
+        "authors": [],
+        "references": [],
+        "tags": [
+          "init"
+        ]
+      }
+    ],
+    "design": [],
+    "directives": {
+      "example": {
+        "description": "An example directive",
+        "steps": [
+          {
+            "type": "text",
+            "description": "This is a placeholder directive. Replace it with your own steps."
+          }
+        ]
+      }
+    },
+    "schema": {
+      "types": {},
+      "data": {}
+    }
+  },
+  "data": {}
+}

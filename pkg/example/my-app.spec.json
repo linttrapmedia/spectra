@@ -1,0 +1,192 @@
+{
+  "ref": "git",
+  "id": "my-app-data",
+  "name": "My App",
+  "description": "User and team management data for My App, with schema-driven types and LLM directives",
+  "version": "1.0.0",
+  "meta": {
+    "changeLog": [
+      {
+        "change": "Initial spec with User, Team, and Address entities",
+        "directive": "init",
+        "timestamp": "2026-03-01T00:00:00Z",
+        "authors": ["Jane Doe"],
+        "references": [],
+        "tags": ["init"]
+      },
+      {
+        "change": "Added addEntity directive for scaffolding new entities",
+        "directive": "addEntity",
+        "timestamp": "2026-03-05T00:00:00Z",
+        "authors": ["Jane Doe"],
+        "references": [],
+        "tags": ["directive", "entity"]
+      }
+    ],
+    "design": [
+      {
+        "decision": "Use UUIDs for all entity identities",
+        "rationale": "Allows distributed ID generation and simplifies merges across environments",
+        "date": "2026-03-01T00:00:00Z",
+        "references": ["https://example.com/design-doc"],
+        "tags": ["ID strategy", "scalability"],
+        "authors": ["Jane Doe"]
+      },
+      {
+        "decision": "Inline addresses rather than separate address collection",
+        "rationale": "Addresses are always 1:1 with users; no need for a separate top-level collection",
+        "date": "2026-03-01T00:00:00Z",
+        "references": [],
+        "tags": ["data modeling"],
+        "authors": ["Jane Doe"]
+      }
+    ],
+    "directives": {
+      "addEntity": {
+        "description": "Procedure for adding a new entity type to the spec schema and data",
+        "steps": [
+          {
+            "type": "text",
+            "description": "Review the current schema types in meta.schema.types to understand existing entities and avoid naming conflicts."
+          },
+          {
+            "type": "promptString",
+            "id": "entityName",
+            "description": "Name your new entity (PascalCase, e.g. 'Product').",
+            "default": "NewEntity",
+            "hidden": false
+          },
+          {
+            "type": "text",
+            "description": "Define the fields for the new entity in meta.schema.types, using primitives (string, number, boolean) or $ref to existing types."
+          },
+          {
+            "type": "text",
+            "description": "Add a $ref entry in meta.schema.data to expose the new entity at the top level of data (e.g. \"products\": { \"$ref\": \"Product[]\" })."
+          },
+          {
+            "type": "text",
+            "description": "Add an empty array in data for the new collection, then add at least one sample record."
+          },
+          {
+            "type": "text",
+            "description": "Add a changelog entry documenting the new entity addition."
+          }
+        ]
+      },
+      "generateTypes": {
+        "description": "Generate TypeScript type definitions from the spec schema",
+        "steps": [
+          {
+            "type": "text",
+            "description": "Read all types defined in meta.schema.types and generate corresponding TypeScript interfaces and type aliases."
+          },
+          {
+            "type": "promptString",
+            "id": "outputPath",
+            "description": "Output file path for generated types",
+            "default": "src/types/generated.ts"
+          },
+          {
+            "type": "snippet",
+            "fence": "bash",
+            "snippet": "bun scripts/generateTypes.ts --spec my-app.spec.json --out ${input:outputPath}",
+            "description": "Run the type generation script"
+          }
+        ]
+      },
+      "seedData": {
+        "description": "Generate seed data records for a given entity type",
+        "steps": [
+          {
+            "type": "pickString",
+            "id": "entityType",
+            "description": "Select the entity type to generate seed data for",
+            "options": ["User", "Team"],
+            "default": "User"
+          },
+          {
+            "type": "promptString",
+            "id": "count",
+            "description": "Number of seed records to generate",
+            "default": "5"
+          },
+          {
+            "type": "text",
+            "description": "Generate realistic sample records matching the entity schema. Ensure IDs are unique, required fields are populated, and $ref fields use valid IDs from existing data."
+          },
+          {
+            "type": "text",
+            "description": "Append the generated records to the corresponding array in data and add a changelog entry."
+          }
+        ]
+      }
+    },
+    "schema": {
+      "types": {
+        "AgeGroup": ["child", "teen", "adult", "senior"],
+        "Address": {
+          "street": "string",
+          "city": "string",
+          "state": "string",
+          "zip": "string"
+        },
+        "User": {
+          "id": "string",
+          "name": "string",
+          "ageGroup": { "$ref": "AgeGroup" },
+          "email?": "string",
+          "address": { "$ref": "Address" },
+          "friends?": { "$ref": "User[]" }
+        },
+        "Team": {
+          "id": "string",
+          "name": "string",
+          "members": { "$ref": "User[]" },
+          "lead": { "$ref": "User" }
+        }
+      },
+      "data": {
+        "users": { "$ref": "User[]" },
+        "teams": { "$ref": "Team[]" }
+      }
+    }
+  },
+  "data": {
+    "users": [
+      {
+        "id": "u1",
+        "name": "Ronald",
+        "ageGroup": "adult",
+        "email": "ronald@example.com",
+        "address": {
+          "street": "123 Main St",
+          "city": "Chicago",
+          "state": "IL",
+          "zip": "60601"
+        },
+        "friends": ["u2"]
+      },
+      {
+        "id": "u2",
+        "name": "Hamburgler",
+        "ageGroup": "child",
+        "address": {
+          "street": "456 Oak Ave",
+          "city": "Chicago",
+          "state": "IL",
+          "zip": "60602"
+        },
+        "friends": ["u1"]
+      }
+    ],
+    "teams": [
+      {
+        "id": "t1",
+        "name": "Alpha Team",
+        "members": ["u1", "u2"],
+        "lead": "u1"
+      }
+    ]
+  }
+}

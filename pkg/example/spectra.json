@@ -1,0 +1,9 @@
+{
+  "ide": "vscode",
+  "out": ".github/prompts",
+  "results": {
+    "info": [],
+    "doctor": [],
+    "validate": []
+  }
+}
