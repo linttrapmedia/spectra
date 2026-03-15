@@ -42,9 +42,6 @@ bunx spectra validate [file|dir]
 # Compile directives into VS Code Copilot .prompt.md files (uses ide/out from spectra.json)
 bunx spectra compile [file|dir]
 
-# Scan a directory for all spec files
-bunx spectra scan [dir]
-
 # Get detailed info about a spec
 bunx spectra info [file|dir]
 
@@ -60,7 +57,6 @@ bunx spectra setup
 ```
 spectra new --name <name> [file]   Create a named .spec.json file
 spectra compile <file|dir>         Compile .prompt.md files from spec directives
-spectra scan [dir]                 Recursively find and report all *.spec.json files
 spectra info [file|dir]            Report detailed info about spec file(s)
 spectra doctor [file|dir]          Diagnose and report issues in spec file(s)
 spectra validate <file|dir>        Validate spec(s) against their schemas
@@ -88,7 +84,6 @@ import {
   compilePromptFile,
   compilePromptFiles,
   validateSpec,
-  scanForSpecs,
   getSpecInfo,
   diagnoseSpec,
 } from "@linttrap/spectra";
@@ -104,9 +99,6 @@ if (!result.valid) {
 
 // Compile all directives to .prompt.md files
 const files = await compilePromptFiles("my-app.spec.json", ".github/prompts");
-
-// Scan for specs
-const specPaths = await scanForSpecs(".");
 
 // Get spec info
 const info = await getSpecInfo("my-app.spec.json");

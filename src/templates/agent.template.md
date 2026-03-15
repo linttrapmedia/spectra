@@ -25,9 +25,6 @@ spectra new --name <name> [filename]
 # Compile directives into .prompt.md files (uses ide/out from spectra.json)
 spectra compile <file|dir>
 
-# Find all spec files recursively
-spectra scan [dir]
-
 # Show detailed info about spec files
 spectra info [file|dir]
 

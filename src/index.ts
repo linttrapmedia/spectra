@@ -11,7 +11,6 @@ export type {
   PickStringStep,
   PrimitiveTypeName,
   PromptStringStep,
-  ScanOptions,
   SchemaData,
   SchemaRef,
   SchemaTypes,
@@ -26,7 +25,7 @@ export type {
   ValidationResult,
 } from "./lib/types";
 
-export type { ScanResult, SpectraConfig, ValidateResult } from "./lib/config";
+export type { SpectraConfig, ValidateResult } from "./lib/config";
 
 export { configPath, defaultConfig, initConfig, readConfig, updateConfigResults, writeConfig } from "./lib/config";
 
@@ -46,8 +45,6 @@ export {
 export { compilePromptFile, compilePromptFiles } from "./lib/prompt";
 
 export { validateSpec } from "./lib/validator";
-
-export { scanForSpecs } from "./lib/scanner";
 
 export { getSpecInfo } from "./lib/info";
 

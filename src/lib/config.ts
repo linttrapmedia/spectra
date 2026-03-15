@@ -3,12 +3,6 @@ import type { DiagnosticResult, SpecInfo } from "./types";
 
 // ─── Config Types ────────────────────────────────────────────────────────────
 
-export interface ScanResult {
-  filePath: string;
-  name: string;
-  description: string;
-}
-
 export interface ValidateResult {
   filePath: string;
   valid: boolean;
@@ -19,7 +13,6 @@ export interface SpectraConfig {
   ide: string;
   out: string;
   results: {
-    scan: ScanResult[];
     info: SpecInfo[];
     doctor: DiagnosticResult[];
     validate: ValidateResult[];
@@ -39,7 +32,6 @@ export function defaultConfig(): SpectraConfig {
     ide: "vscode",
     out: ".github/prompts",
     results: {
-      scan: [],
       info: [],
       doctor: [],
       validate: [],

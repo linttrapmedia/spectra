@@ -5,7 +5,6 @@ import { compileCommand } from "./commands/compile";
 import { doctorCommand } from "./commands/doctor";
 import { infoCommand } from "./commands/info";
 import { newCommand } from "./commands/new";
-import { scanCommand } from "./commands/scan";
 import { setupCommand } from "./commands/setup";
 import { validateCommand } from "./commands/validate";
 import { bold, cyan, dim, LOGO } from "./lib/color";
@@ -16,7 +15,6 @@ ${bold(cyan(`${LOGO} Spectra`))} ${dim("— CLI for managing .spec.json files")}
 ${bold("Usage:")}
   ${cyan("spectra new")} --name <name> [file]   Create a named .spec.json file
   ${cyan("spectra compile")} [file|dir]         Compile .prompt.md files from spec(s)
-  ${cyan("spectra scan")} [dir]                 Recursively find all *.spec.json files
   ${cyan("spectra info")} [file|dir]            Report detailed info about spec file(s)
   ${cyan("spectra doctor")} [file|dir]          Diagnose and report issues in spec file(s)
   ${cyan("spectra validate")} [file|dir]        Validate spec(s) against their schemas
@@ -79,9 +77,6 @@ async function main() {
       break;
     case "compile":
       await compileCommand(positional, flags);
-      break;
-    case "scan":
-      await scanCommand(positional, flags);
       break;
     case "info":
       await infoCommand(positional, flags);

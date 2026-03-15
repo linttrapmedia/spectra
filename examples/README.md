@@ -59,23 +59,7 @@ This creates one `.prompt.md` file per directive in the output directory configu
 
 Each file is a complete VS Code Copilot prompt with context, design decisions, changelog, and step-by-step instructions.
 
-### 5. Scan for spec files
-
-```bash
-bunx spectra scan .
-```
-
-Output:
-
-```
-  /path/to/examples/my-app.spec.json
-    name: My App
-    description: User and team management data for My App...
-
-1 spec file(s) found
-```
-
-### 6. Create a named spec
+### 5. Create a named spec
 
 ```bash
 bunx spectra create --name "Test App"
@@ -83,7 +67,7 @@ bunx spectra create --name "Test App"
 
 Creates `test-app.spec.json` with the name and id pre-filled.
 
-### 7. Create a spec from template
+### 6. Create a spec from template
 
 ```bash
 bunx spectra init test.spec.json
