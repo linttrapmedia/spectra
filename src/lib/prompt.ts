@@ -1,5 +1,5 @@
 import { mkdir } from "fs/promises";
-import { basename, join } from "path";
+import { join } from "path";
 import { readSpec } from "./spec";
 import type { SpecFile } from "./types";
 
@@ -13,6 +13,7 @@ export function compilePromptFile(specFile: SpecFile, directiveName: string, _id
 
   // ─── YAML frontmatter ──────────────────────────────────────────────────────
   lines.push("---");
+  lines.push(`name: "${specFile.name}"`);
   lines.push(`description: "${directive.description}"`);
 
   // Collect all promptString / pickString inputs for VS Code args
@@ -105,14 +106,14 @@ export async function compilePromptFiles(
   ide: "vscode" = "vscode",
 ): Promise<string[]> {
   const specFile = await readSpec(specPath);
-  const specBaseName = basename(specPath, ".spec.json");
+  const specId = specFile.name.toLowerCase().replace(/\s+/g, "-");
   const written: string[] = [];
 
   await mkdir(outputDir, { recursive: true });
 
   for (const directiveName of Object.keys(specFile.meta.directives)) {
     const content = compilePromptFile(specFile, directiveName, ide);
-    const fileName = `${specBaseName}.${directiveName}.prompt.md`;
+    const fileName = `${specId}.${directiveName}.prompt.md`;
     const outPath = join(outputDir, fileName);
     await Bun.write(outPath, content);
     written.push(outPath);

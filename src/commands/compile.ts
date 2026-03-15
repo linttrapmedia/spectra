@@ -22,7 +22,7 @@ export async function compileCommand(positional: string[], flags: Record<string,
   let specFiles: string[];
 
   if (info.isDirectory()) {
-    const glob = new Bun.Glob("*.spec.json");
+    const glob = new Bun.Glob("**/*.spec.json");
     specFiles = [];
     for await (const path of glob.scan({ cwd: targetPath, absolute: true })) {
       specFiles.push(path);

@@ -14,7 +14,7 @@ spectra — CLI for managing .spec.json files
 
 Usage:
   spectra create --name <name> [file] Create a named .spec.json file
-  spectra init [file]                Create a new .spec.json template
+  spectra init [file]                (deprecated) Use "spectra create" instead
   spectra compile <file|dir>         Compile .prompt.md files from spec(s)
     --ide vscode                     IDE target (default: vscode)
     --out <dir>                      Output directory (default: .github/prompts/)
