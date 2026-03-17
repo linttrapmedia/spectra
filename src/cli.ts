@@ -5,27 +5,43 @@ import { compileCommand } from "./commands/compile";
 import { doctorCommand } from "./commands/doctor";
 import { infoCommand } from "./commands/info";
 import { newCommand } from "./commands/new";
+import { pkgCommand } from "./commands/pkg";
 import { setupCommand } from "./commands/setup";
 import { validateCommand } from "./commands/validate";
 import { bold, cyan, dim, LOGO } from "./lib/color";
+
+const COMMANDS: [string, string][] = [
+  ["coda new --name <name>", "Create a named .coda.json file"],
+  ["coda compile [file|dir]", "Compile .prompt.md files from spec(s)"],
+  ["coda info [file|dir]", "Report detailed info about spec file(s)"],
+  ["coda doctor [file|dir]", "Diagnose and report issues in spec file(s)"],
+  ["coda validate [file|dir]", "Validate spec(s) against their schemas"],
+  ["coda clean", "Remove agent files and clear config results"],
+  ["coda pkg --list", "List available packages"],
+  ["coda pkg --install <name>", "Install a package to current directory"],
+  ["coda setup", "Scaffold coda.json config and agent file"],
+  ["  --ide <ide>", "IDE target (default: vscode)"],
+  ["  --out <dir>", "Output directory (default: .github/prompts/)"],
+];
+
+const OPTIONS: [string, string][] = [
+  ["--help, -h", "Show this help message"],
+  ["--version, -v", "Show version"],
+];
+
+function formatTable(rows: [string, string][], colorCmd: (s: string) => string): string {
+  const maxLeft = Math.max(...rows.map(([l]) => l.length));
+  return rows.map(([left, right]) => `  ${colorCmd(left)}${" ".repeat(maxLeft - left.length)}  ${right}`).join("\n");
+}
 
 const USAGE = `
 ${bold(cyan(`${LOGO} Coda`))} ${dim("— CLI for managing .coda.json files")}
 
 ${bold("Usage:")}
-  ${cyan("coda new")} --name <name> [file]   Create a named .coda.json file
-  ${cyan("coda compile")} [file|dir]         Compile .prompt.md files from spec(s)
-  ${cyan("coda info")} [file|dir]            Report detailed info about spec file(s)
-  ${cyan("coda doctor")} [file|dir]          Diagnose and report issues in spec file(s)
-  ${cyan("coda validate")} [file|dir]        Validate spec(s) against their schemas
-  ${cyan("coda clean")}                     Remove agent files and clear config results
-  ${cyan("coda setup")}                      Scaffold coda.json config and agent file
-    --ide <ide>                      IDE target (default: vscode)
-    --out <dir>                      Output directory (default: .github/prompts/)
+${formatTable(COMMANDS, cyan)}
 
 ${bold("Options:")}
-  --help, -h                         Show this help message
-  --version, -v                      Show version
+${formatTable(OPTIONS, (s) => s)}
 `.trim();
 
 function parseArgs(argv: string[]) {
@@ -92,6 +108,9 @@ async function main() {
       break;
     case "clean":
       await cleanCommand(positional, flags);
+      break;
+    case "pkg":
+      await pkgCommand(positional, flags);
       break;
     default:
       console.error(`Unknown command: ${command}\n`);
