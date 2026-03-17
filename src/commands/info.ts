@@ -18,7 +18,7 @@ export async function infoCommand(positional: string[], _flags: Record<string, s
   }
 
   if (specFiles.length === 0) {
-    console.log("No .spec.json files found");
+    console.log("No .coda.json files found");
     return;
   }
 

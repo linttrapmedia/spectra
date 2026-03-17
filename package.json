@@ -2,7 +2,7 @@
   "name": "@linttrap/coda",
   "version": "0.1.0",
   "type": "module",
-  "description": "CLI and library for managing .spec.json files — structured data optimized for LLMs",
+  "description": "CLI and library for managing .coda.json files — structured data optimized for LLMs",
   "bin": {
     "coda": "./src/cli.ts"
   },

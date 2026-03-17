@@ -18,7 +18,7 @@ export async function doctorCommand(positional: string[], _flags: Record<string,
   }
 
   if (specFiles.length === 0) {
-    console.log("No .spec.json files found");
+    console.log("No .coda.json files found");
     return;
   }
 

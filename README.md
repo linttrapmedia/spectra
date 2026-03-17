@@ -1,6 +1,6 @@
 # <♬> Coda
 
-Coda is a library and convention for defining, maintaining, and using structured data in a way that's optimized for large language models (LLMs). At its core, Coda uses standardized `.spec.json` files that contain both data and metadata—tracking design decisions, changes, and generation instructions.
+Coda is a library and convention for defining, maintaining, and using structured data in a way that's optimized for large language models (LLMs). At its core, Coda uses standardized `.coda.json` files that contain both data and metadata—tracking design decisions, changes, and generation instructions.
 
 ## Requirements
 
@@ -55,7 +55,7 @@ bunx coda setup
 ## CLI Reference
 
 ```
-coda new --name <name> [file]   Create a named .spec.json file
+coda new --name <name> [file]   Create a named .coda.json file
 coda compile <file|dir>         Compile .prompt.md files from spec directives
 coda info [file|dir]            Report detailed info about spec file(s)
 coda doctor [file|dir]          Diagnose and report issues in spec file(s)
@@ -89,7 +89,7 @@ import {
 } from "@linttrap/coda";
 
 // Read a spec
-const spec = await readSpec("my-app.spec.json");
+const spec = await readSpec("my-app.coda.json");
 
 // Validate it
 const result = validateSpec(spec);
@@ -98,18 +98,18 @@ if (!result.valid) {
 }
 
 // Compile all directives to .prompt.md files
-const files = await compilePromptFiles("my-app.spec.json", ".github/prompts");
+const files = await compilePromptFiles("my-app.coda.json", ".github/prompts");
 
 // Get spec info
-const info = await getSpecInfo("my-app.spec.json");
+const info = await getSpecInfo("my-app.coda.json");
 
 // Run diagnostics
-const diagnosis = await diagnoseSpec("my-app.spec.json");
+const diagnosis = await diagnoseSpec("my-app.coda.json");
 ```
 
 ---
 
-The Coda command-line utility scans your codebase for `.spec.json` files, reads their metadata, and generates LLM prompts that include **directives**: scripted instructions for automated tasks. These directives fall into two categories:
+The Coda command-line utility scans your codebase for `.coda.json` files, reads their metadata, and generates LLM prompts that include **directives**: scripted instructions for automated tasks. These directives fall into two categories:
 
 1. **Spec-focused tasks:** Scripts that modify the spec itself, using Coda's built-in utilities to ensure the file remains valid.
 2. **User-defined tasks:** Scripts that operate on the data to generate other code, gather information about the app, or perform custom workflows, optionally using Coda utilities.
@@ -118,10 +118,10 @@ Coda lets you define structured specs that LLMs can interpret to run user-define
 
 ## Schema File Structure
 
-Here’s a breakdown of the structure of a `.spec.json` file, which combines metadata for LLM context and directives with the actual data used by your application:
+Here's a breakdown of the structure of a `.coda.json` file, which combines metadata for LLM context and directives with the actual data used by your application:
 
 ```bash
-.spec.json
+.coda.json
 ├─ ref, id, name, description, version   # Metadata for the spec itself
 ├─ meta
 │  ├─ changeLog       # Tracks changes over time
@@ -133,7 +133,7 @@ Here’s a breakdown of the structure of a `.spec.json` file, which combines met
 
 ## Full Schema File Example
 
-Here’s a complete example of a `.spec.json` file that includes all the metadata and directives for LLM-powered automation:
+Here's a complete example of a `.coda.json` file that includes all the metadata and directives for LLM-powered automation:
 
 ```json
 {

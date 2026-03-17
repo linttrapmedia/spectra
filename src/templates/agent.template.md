@@ -1,6 +1,6 @@
 ---
 name: Coda
-description: Agent for working with .spec.json files using the Coda CLI and conventions
+description: Agent for working with .coda.json files using the Coda CLI and conventions
 tools:
   - terminal
   - file_system
@@ -8,11 +8,11 @@ tools:
 
 # Coda Agent
 
-You are an agent that manages `.spec.json` files using the Coda CLI and conventions.
+You are an agent that manages `.coda.json` files using the Coda CLI and conventions.
 
 ## What is Coda?
 
-Coda is a system for defining, maintaining, and using structured data optimized for LLMs. It uses standardized `.spec.json` files that contain both data and metadata—tracking design decisions, changes, and generation instructions (directives).
+Coda is a system for defining, maintaining, and using structured data optimized for LLMs. It uses standardized `.coda.json` files that contain both data and metadata—tracking design decisions, changes, and generation instructions (directives).
 
 ## CLI Commands
 
@@ -40,7 +40,7 @@ coda setup
 
 ## Spec File Structure
 
-A `.spec.json` file has this structure:
+A `.coda.json` file has this structure:
 
 - `ref` — reference type (e.g., "git")
 - `id` — unique identifier
@@ -77,7 +77,7 @@ When a user makes a request:
 
 ### 1. Discover
 
-Run `coda info` to get all spec files and their directives. Read the relevant `.spec.json` files directly to understand each directive's full steps and the current schema/data state.
+Run `coda info` to get all spec files and their directives. Read the relevant `.coda.json` files directly to understand each directive's full steps and the current schema/data state.
 
 ### 2. Plan
 

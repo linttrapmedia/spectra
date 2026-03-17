@@ -3,7 +3,7 @@ import type { ScanOptions } from "./types";
 
 export async function scanForSpecs(rootDir: string, options?: ScanOptions): Promise<string[]> {
   const absRoot = resolve(rootDir);
-  const glob = new Bun.Glob("**/*.spec.json");
+  const glob = new Bun.Glob("**/*.coda.json");
   const results: string[] = [];
 
   const ignorePatterns = options?.ignore ?? ["node_modules/**", ".git/**"];

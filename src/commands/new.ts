@@ -11,7 +11,7 @@ export async function newCommand(positional: string[], flags: Record<string, str
   }
 
   const id = name.toLowerCase().replace(/\s+/g, "-");
-  const fileName = positional[0] ?? `${id}.spec.json`;
+  const fileName = positional[0] ?? `${id}.coda.json`;
   const filePath = resolve(process.cwd(), fileName);
 
   const file = Bun.file(filePath);

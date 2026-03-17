@@ -1,6 +1,6 @@
 # Coda Examples
 
-This directory contains a sample `.spec.json` file to demonstrate Coda CLI usage.
+This directory contains a sample `.coda.json` file to demonstrate Coda CLI usage.
 
 ## Prerequisites
 
@@ -16,19 +16,19 @@ bun add -d @linttrap/coda
 
 ```bash
 cd examples
-bunx coda validate my-app.spec.json
+bunx coda validate my-app.coda.json
 ```
 
 Expected output:
 
 ```
-✓ /path/to/examples/my-app.spec.json
+✓ /path/to/examples/my-app.coda.json
 ```
 
 ### 2. Get info about the spec
 
 ```bash
-bunx coda info my-app.spec.json
+bunx coda info my-app.coda.json
 ```
 
 This prints a detailed report: name, description, version, directives with step counts, schema type count, data keys, changelog entries, and design decisions.
@@ -36,7 +36,7 @@ This prints a detailed report: name, description, version, directives with step 
 ### 3. Run the doctor
 
 ```bash
-bunx coda doctor my-app.spec.json
+bunx coda doctor my-app.coda.json
 ```
 
 Reports any errors or warnings in the spec structure.
@@ -48,7 +48,7 @@ Reports any errors or warnings in the spec structure.
 bunx coda setup
 
 # Then compile (uses ide/out from coda.json)
-bunx coda compile my-app.spec.json
+bunx coda compile my-app.coda.json
 ```
 
 This creates one `.prompt.md` file per directive in the output directory configured in `coda.json` (default: `.github/prompts/`):
@@ -65,12 +65,12 @@ Each file is a complete VS Code Copilot prompt with context, design decisions, c
 bunx coda create --name "Test App"
 ```
 
-Creates `test-app.spec.json` with the name and id pre-filled.
+Creates `test-app.coda.json` with the name and id pre-filled.
 
 ### 6. Create a spec from template
 
 ```bash
-bunx coda init test.spec.json
+bunx coda init test.coda.json
 ```
 
-Creates a minimal `test.spec.json` template ready for editing.
+Creates a minimal `test.coda.json` template ready for editing.

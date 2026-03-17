@@ -21,13 +21,13 @@ export async function compileCommand(positional: string[], flags: Record<string,
   let specFiles: string[];
 
   if (info.isDirectory()) {
-    const glob = new Bun.Glob("**/*.spec.json");
+    const glob = new Bun.Glob("**/*.coda.json");
     specFiles = [];
     for await (const path of glob.scan({ cwd: targetPath, absolute: true })) {
       specFiles.push(path);
     }
     if (specFiles.length === 0) {
-      console.log("No .spec.json files found in directory");
+      console.log("No .coda.json files found in directory");
       return;
     }
   } else {

@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import type { ChangeLogEntry, CreateSpecOptions, DesignEntry, Directive, SpecFile } from "./types";
 
-const TEMPLATE_PATH = resolve(import.meta.dir, "../templates/spec.template.json");
+const TEMPLATE_PATH = resolve(import.meta.dir, "../templates/coda.template.json");
 
 export async function readSpec(filePath: string): Promise<SpecFile> {
   const file = Bun.file(filePath);

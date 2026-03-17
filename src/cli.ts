@@ -10,10 +10,10 @@ import { validateCommand } from "./commands/validate";
 import { bold, cyan, dim, LOGO } from "./lib/color";
 
 const USAGE = `
-${bold(cyan(`${LOGO} Coda`))} ${dim("— CLI for managing .spec.json files")}
+${bold(cyan(`${LOGO} Coda`))} ${dim("— CLI for managing .coda.json files")}
 
 ${bold("Usage:")}
-  ${cyan("coda new")} --name <name> [file]   Create a named .spec.json file
+  ${cyan("coda new")} --name <name> [file]   Create a named .coda.json file
   ${cyan("coda compile")} [file|dir]         Compile .prompt.md files from spec(s)
   ${cyan("coda info")} [file|dir]            Report detailed info about spec file(s)
   ${cyan("coda doctor")} [file|dir]          Diagnose and report issues in spec file(s)

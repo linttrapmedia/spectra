@@ -19,7 +19,7 @@ afterEach(async () => {
   await rm(tmpDir, { recursive: true, force: true });
 });
 
-function specPath(name = "test.spec.json"): string {
+function specPath(name = "test.coda.json"): string {
   return join(tmpDir, name);
 }
 
@@ -76,18 +76,18 @@ describe("coda new", () => {
   test("creates a named spec file", async () => {
     const result = run(["new", "--name", "My App"]);
     expect(result.exitCode).toBe(0);
-    expect(result.stdout).toContain("Created my-app.spec.json");
+    expect(result.stdout).toContain("Created my-app.coda.json");
 
-    const spec = await readJson(join(tmpDir, "my-app.spec.json"));
+    const spec = await readJson(join(tmpDir, "my-app.coda.json"));
     expect(spec.name).toBe("My App");
     expect(spec.id).toBe("my-app");
   });
 
   test("creates a spec with a custom output filename", async () => {
-    const result = run(["new", "--name", "Widget", "widget.spec.json"]);
+    const result = run(["new", "--name", "Widget", "widget.coda.json"]);
     expect(result.exitCode).toBe(0);
 
-    const spec = await readJson(join(tmpDir, "widget.spec.json"));
+    const spec = await readJson(join(tmpDir, "widget.coda.json"));
     expect(spec.name).toBe("Widget");
   });
 
@@ -98,7 +98,7 @@ describe("coda new", () => {
   });
 
   test("refuses to overwrite an existing file", async () => {
-    await writeJson(join(tmpDir, "my-app.spec.json"), {});
+    await writeJson(join(tmpDir, "my-app.coda.json"), {});
     const result = run(["new", "--name", "My App"]);
     expect(result.exitCode).not.toBe(0);
     expect(result.stderr).toContain("already exists");
@@ -131,8 +131,8 @@ describe("coda validate", () => {
   });
 
   test("validates all specs in a directory", async () => {
-    await writeJson(join(tmpDir, "a.spec.json"), makeValidSpec({ id: "a", name: "A" }));
-    await writeJson(join(tmpDir, "b.spec.json"), makeValidSpec({ id: "b", name: "B" }));
+    await writeJson(join(tmpDir, "a.coda.json"), makeValidSpec({ id: "a", name: "A" }));
+    await writeJson(join(tmpDir, "b.coda.json"), makeValidSpec({ id: "b", name: "B" }));
 
     const result = run(["validate", tmpDir]);
     expect(result.exitCode).toBe(0);
@@ -151,13 +151,13 @@ describe("coda validate", () => {
   });
 
   test("defaults to current directory with no arguments", async () => {
-    await writeJson(join(tmpDir, "x.spec.json"), makeValidSpec({ id: "x", name: "X" }));
+    await writeJson(join(tmpDir, "x.coda.json"), makeValidSpec({ id: "x", name: "X" }));
     const result = run(["validate"]);
     expect(result.exitCode).toBe(0);
   });
 
   test("validates the example spec", async () => {
-    const examplePath = resolve(import.meta.dir, "../pkg/example/my-app.spec.json");
+    const examplePath = resolve(import.meta.dir, "../pkg/example/my-app.coda.json");
     const result = run(["validate", examplePath]);
     expect(result.exitCode).toBe(0);
     expect(result.stdout).toContain("✓");
@@ -238,15 +238,15 @@ describe("coda doctor", () => {
   });
 
   test("diagnoses the example spec without errors", async () => {
-    const examplePath = resolve(import.meta.dir, "../pkg/example/my-app.spec.json");
+    const examplePath = resolve(import.meta.dir, "../pkg/example/my-app.coda.json");
     const result = run(["doctor", examplePath]);
     expect(result.exitCode).toBe(0);
     expect(result.stdout).toContain("0 error(s)");
   });
 
   test("scans a directory for specs to diagnose", async () => {
-    await writeJson(join(tmpDir, "a.spec.json"), makeValidSpec({ id: "a", name: "A" }));
-    await writeJson(join(tmpDir, "b.spec.json"), makeValidSpec({ id: "b", name: "B" }));
+    await writeJson(join(tmpDir, "a.coda.json"), makeValidSpec({ id: "a", name: "A" }));
+    await writeJson(join(tmpDir, "b.coda.json"), makeValidSpec({ id: "b", name: "B" }));
 
     const result = run(["doctor", tmpDir]);
     expect(result.stdout).toContain("2 spec(s) checked");
@@ -282,8 +282,8 @@ describe("coda info", () => {
   });
 
   test("handles directory with multiple specs", async () => {
-    await writeJson(join(tmpDir, "a.spec.json"), makeValidSpec({ id: "a", name: "App A" }));
-    await writeJson(join(tmpDir, "b.spec.json"), makeValidSpec({ id: "b", name: "App B" }));
+    await writeJson(join(tmpDir, "a.coda.json"), makeValidSpec({ id: "a", name: "App A" }));
+    await writeJson(join(tmpDir, "b.coda.json"), makeValidSpec({ id: "b", name: "App B" }));
 
     const result = run(["info", tmpDir]);
     expect(result.exitCode).toBe(0);
@@ -301,7 +301,7 @@ describe("coda compile", () => {
       setup: { description: "Setup", steps: [{ type: "text", description: "Go" }] },
       build: { description: "Build", steps: [{ type: "text", description: "Build it" }] },
     };
-    const p = specPath("app.spec.json");
+    const p = specPath("app.coda.json");
     await writeJson(p, spec);
 
     const outDir = join(tmpDir, "prompts");
@@ -334,7 +334,7 @@ describe("coda compile", () => {
         steps: [{ type: "promptString", id: "name", description: "Your name" }],
       },
     };
-    const p = specPath("tool-app.spec.json");
+    const p = specPath("tool-app.coda.json");
     await writeJson(p, spec);
 
     const outDir = join(tmpDir, "prompts");
@@ -359,7 +359,7 @@ describe("coda compile", () => {
         ],
       },
     };
-    const p = specPath("allsteps.spec.json");
+    const p = specPath("allsteps.coda.json");
     await writeJson(p, spec);
 
     const outDir = join(tmpDir, "prompts");
@@ -385,7 +385,7 @@ describe("coda compile", () => {
     spec.meta.directives = {
       run: { description: "Run", steps: [{ type: "text", description: "Go" }] },
     };
-    const p = specPath("design.spec.json");
+    const p = specPath("design.coda.json");
     await writeJson(p, spec);
 
     const outDir = join(tmpDir, "prompts");
@@ -412,7 +412,7 @@ describe("coda compile", () => {
     spec.meta.directives = {
       run: { description: "Run", steps: [{ type: "text", description: "Go" }] },
     };
-    const p = specPath("changelog.spec.json");
+    const p = specPath("changelog.coda.json");
     await writeJson(p, spec);
 
     const outDir = join(tmpDir, "prompts");
@@ -425,7 +425,7 @@ describe("coda compile", () => {
   });
 
   test("compiles all specs in a directory", async () => {
-    await writeJson(join(tmpDir, "a.spec.json"), {
+    await writeJson(join(tmpDir, "a.coda.json"), {
       ...makeValidSpec({ id: "a", name: "A" }),
       meta: {
         changeLog: [],
@@ -434,7 +434,7 @@ describe("coda compile", () => {
         schema: { types: {}, data: {} },
       },
     });
-    await writeJson(join(tmpDir, "b.spec.json"), {
+    await writeJson(join(tmpDir, "b.coda.json"), {
       ...makeValidSpec({ id: "b", name: "B" }),
       meta: {
         changeLog: [],
@@ -461,7 +461,7 @@ describe("coda compile", () => {
     spec.meta.directives = {
       init: { description: "Init", steps: [{ type: "text", description: "Start" }] },
     };
-    const p = specPath("nested.spec.json");
+    const p = specPath("nested.coda.json");
     await writeJson(p, spec);
 
     const outDir = join(tmpDir, "deep", "nested", "output");
@@ -474,13 +474,13 @@ describe("coda compile", () => {
   });
 
   test("defaults to current directory with no arguments", async () => {
-    await writeJson(join(tmpDir, "x.spec.json"), makeValidSpec({ id: "x", name: "X" }));
+    await writeJson(join(tmpDir, "x.coda.json"), makeValidSpec({ id: "x", name: "X" }));
     const result = run(["compile"]);
     expect(result.exitCode).toBe(0);
   });
 
   test("compiles the example spec", async () => {
-    const examplePath = resolve(import.meta.dir, "../pkg/example/my-app.spec.json");
+    const examplePath = resolve(import.meta.dir, "../pkg/example/my-app.coda.json");
     const outDir = join(tmpDir, "compiled");
     await writeJson(join(tmpDir, "coda.json"), makeConfig({ out: outDir }));
     const result = run(["compile", examplePath]);
@@ -548,7 +548,7 @@ describe("end-to-end CLI workflow", () => {
     let result = run(["new", "--name", "Workflow App"]);
     expect(result.exitCode).toBe(0);
 
-    const p = join(tmpDir, "workflow-app.spec.json");
+    const p = join(tmpDir, "workflow-app.coda.json");
     const spec = await readJson(p);
 
     // 2. Manually enrich the spec with schema, data, directives, changelog, design
